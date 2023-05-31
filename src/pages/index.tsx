@@ -12,7 +12,7 @@ import { IoCloseSharp, IoColorPalette, IoPersonSharp } from "react-icons/io5";
 
 const ColorSwatch = ({ color, index }: { color: number[]; index: number }) => (
   <div
-    className="inline-block drop-shadow-md rounded-lg w-24 h-24 border-solid border-4 mx-1 border-white "
+    className="inline-block w-24 h-24 mx-1 border-4 border-white border-solid rounded-lg drop-shadow-md"
     style={{ backgroundColor: `rgb(${color.toString()})` }}
   >
   </div>
@@ -34,13 +34,13 @@ export default function Home({ colors }: { colors: Array<number[]> }) {
 
   return (
     <main
-      className="w-screen h-screen font-Inter pt-4"
+      className="w-screen h-screen font-Inter"
       style={{
         backgroundColor: `rgb(${colorPalette[4]?.toString()})`,
         color: `rgb(${colorPalette[0]?.toString()})`,
       }}
     >
-      <section className=" flex justify-between mb-4">
+      <section className="flex justify-between py-4 bg-slate-800">
         {colorPalette.map((color, index) => (
           <ColorSwatch key={index} color={color} index={index} />
         ))}
