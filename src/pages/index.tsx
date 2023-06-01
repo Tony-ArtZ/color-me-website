@@ -8,8 +8,7 @@ import {
   AiOutlineMenu,
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
-import { IoCloseSharp, IoColorPalette, IoPersonSharp } from "react-icons/io5";
-
+import { IoChevronDown, IoChevronUp, IoCloseSharp, IoColorPalette, IoPersonSharp } from "react-icons/io5";
 const ColorSwatch = ({ color, index }: { color: number[]; index: number }) => (
   <div
     className="inline-block w-24 h-24 mx-1 border-4 border-white border-solid rounded-lg drop-shadow-md"
@@ -21,7 +20,7 @@ const ColorSwatch = ({ color, index }: { color: number[]; index: number }) => (
 export default function Home({ colors }: { colors: Array<number[]> }) {
   const [colorPalette, SetColorPalette] = useState(colors);
   const [sideBarActive, SetSideBarActive] = useState(false);
-
+  const [paletteBarActive, SetPaletteBarActive] = useState(true)
   const getColors = async () => {
     const res = await fetch("http://colormind.io/api/", {
       method: "POST",
@@ -40,12 +39,14 @@ export default function Home({ colors }: { colors: Array<number[]> }) {
         color: `rgb(${colorPalette[0]?.toString()})`,
       }}
     >
-      <section className="flex justify-between py-4 bg-slate-800">
+      <section className="w-full bg-slate-800">
+        <div className={`${paletteBarActive?"flex":"hidden"} duration-300 transform transition-all ease-in-out justify-between py-4`}>
         {colorPalette.map((color, index) => (
           <ColorSwatch key={index} color={color} index={index} />
         ))}
-        {/* <button onClick={getColors}>Regenerate</button> */}
-      </section>
+      </div>
+        <button onClick={()=>SetPaletteBarActive((current)=>!current)} className={` w-full text-2xl grid place-items-center`}><IoChevronUp className={` ${paletteBarActive?"rotate-0":"rotate-180"} transform transition-all ease-in-out duration-300`}/></button>
+        </section>
       <section>
         <div
           className={`absolute z-20 w-9/12 h-full ${
